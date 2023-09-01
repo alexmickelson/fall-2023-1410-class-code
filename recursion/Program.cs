@@ -32,13 +32,11 @@ press A to add an item, followed by the name of the item
 press D to remove an item, followed by the name of item
 ";
 
-Console.WriteLine(menuOptions);
+// Console.WriteLine(menuOptions);
 
-var validUserInput = getValidUserInput();
+// var validUserInput = getValidUserInput();
 
-Console.WriteLine($"user input was {validUserInput}");
-
-// do thing that user asked
+// Console.WriteLine($"user input was {validUserInput}");
 
 
 string getValidUserInput()
@@ -67,10 +65,43 @@ string getValidUserInput()
 }
 
 //sequence contains no elements. stack exercise
-// Debug.Assert(Sum(new List<int>() { 1, 2, 3 }) == 6, $"could not sum list of 1, 2, 3 got {Sum(new List<int>() { 1, 2, 3 })}");
-// int Sum(List<int> input)
+int Sum(List<int> input)
+{
+  if(input.Count() == 1)
+    return input[0];
+
+  var lastNumber = input[^1];
+  var everythingExceptTheLastNumber = input[0..^1];
+  return lastNumber + Sum(everythingExceptTheLastNumber);
+}
+
+Debug.Assert(Sum(new List<int>() { 3 }) == 3, $"could not sum list of 1 got {Sum(new List<int>() { 3 })}");
+Debug.Assert(Sum(new List<int>() { 1, 2, 3 }) == 6, $"could not sum list of 1, 2, 3 got {Sum(new List<int>() { 1, 2, 3 })}");
+
+// experimenting with indexing
+// var array = new int[] { 0, 1, 2, 3 };
+// foreach(var n in array[0..^1])
 // {
-//   var last = input.Last();
-//   input.RemoveAt(input.Count - 1);
-//   return last + Sum(input);
+//   Console.WriteLine(n);
 // }
+
+
+// uint overflow = 2_147_483_647;
+// Console.WriteLine(overflow);
+// overflow += 1;
+// Console.WriteLine(overflow);
+
+// Factorial
+
+int Factorial(int input)
+{
+  if(input == 1)
+  {
+    return 1;
+  }
+  return Factorial(input - 1) * input;
+}
+
+Debug.Assert(Factorial(1) == 1, "base case, factorial 1 should equal 1");
+Debug.Assert(Factorial(2) == 2, $"factorial 2 should equal 2, was {Factorial(2)}");
+Debug.Assert(Factorial(12) == 479001600, $"factorial 12 should equal 479001600, was {Factorial(12)}");
