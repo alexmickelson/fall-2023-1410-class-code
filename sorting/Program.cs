@@ -1,91 +1,125 @@
-﻿// See https://aka.ms/new-console-template for more information
-// Console.WriteLine("Hello, World!");
-// Console.ReadLine();
+﻿using System.Diagnostics;
 
-// File.ReadAllText("./nubmers.txt");
-// File.WriteAllText("./numbers-out.txt", "");
-
-using System;
-using System.Diagnostics;
-
-static List<int> SelectionSort(List<int> input)
+List<int> CombineSortedArrays(List<int> list1, List<int> list2)
 {
-  for (int i = 0; i < input.Count(); i++)
+  var combined = new List<int>() { };
+  while (list1.Count + list2.Count != 0)
   {
-
-
-    var lastIndex = input.Count() - 1 - i;
-    var largestIndex = 0;
-
-    for (int j = 0; j < lastIndex; j++)
+    if (list1.Count == 0)
     {
-      if (input[largestIndex] < input[j])
-      {
-        largestIndex = j;
-      }
+      combined.Add(list2.First());
+      list2.RemoveAt(0);
     }
-
-
-    var lastValue = input[lastIndex];
-    input[lastIndex] = input[largestIndex];
-    input[largestIndex] = lastValue;
-
+    else if (list2.Count == 0)
+    {
+      combined.Add(list1.First());
+      list1.RemoveAt(0);
+    }
+    else if (list1.First() < list2.First())
+    {
+      combined.Add(list1.First());
+      list1.RemoveAt(0);
+    }
+    else
+    {
+      combined.Add(list2.First());
+      list2.RemoveAt(0);
+    }
   }
-  return input;
+  return combined;
 }
 
-void TestSelectionSort()
+
+var condition1Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { });
+var condition1ErrorMessage = $"Error on test for condition #1, sorted results are {string.Join(", ", condition1Results)}";
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    condition1Results,
+    new List<int>() { 1 }
+  ),
+  condition1ErrorMessage
+);
+
+
+var condition2Results = CombineSortedArrays(new List<int>() { }, new List<int>() { 1 });
+var condition2ErrorMessage = $"Error on test for condition #2, sorted results are {string.Join(", ", condition2Results)}";
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    condition2Results,
+    new List<int>() { 1 }
+  ),
+  condition2ErrorMessage
+);
+
+
+var condition3Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { 2 });
+var condition3ErrorMessage = $"Error on test for condition #3, sorted results are {string.Join(", ", condition3Results)}";
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    condition3Results,
+    new List<int>() { 1, 2 }
+  ),
+  condition3ErrorMessage
+);
+
+var condition4Results = CombineSortedArrays(new List<int>() { 2 }, new List<int>() { 1 });
+var condition4ErrorMessage = $"Error on test for condition #4, sorted results are {string.Join(", ", condition4Results)}";
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    condition4Results,
+    new List<int>() { 1, 2 }
+  ),
+  condition4ErrorMessage
+);
+
+
+var repeatStep2Results = CombineSortedArrays(new List<int>() { 1, 3, 5 }, new List<int>() { -5, 3, 6, 7 });
+var repeatStep2ErrorMessage = $"Error on test for repeating step #2, sorted results are {string.Join(", ", repeatStep2Results)}";
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    repeatStep2Results,
+    new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
+  ),
+  repeatStep2ErrorMessage
+);
+
+
+List<int> SortViaMergeSort(List<int> input)
 {
-  var numbers = new List<int>() { 2, 1 };
-  var actualOutput = SelectionSort(numbers);
-  var expectedOutput = new List<int>() { 1, 2 };
-  for (int i = 0; i < actualOutput.Count(); i++)
-  {
-    var message = $"index: {i} not the same {actualOutput[i]} {expectedOutput[i]}";
-    Debug.Assert(actualOutput[i] == expectedOutput[i], message);
-  }
+  if (input.Count == 1)
+    return input;
+  var middle = input.Count / 2;
+  var firstHalf = input[0..middle];
+  var secondHalf = input[middle..^0];
+  return CombineSortedArrays(
+    SortViaMergeSort(firstHalf),
+    SortViaMergeSort(secondHalf)
+  );
 }
 
-void TestSelectionSortWithMoreNumbers()
-{
-  var numbers = new List<int>() { 4, 3, 2, 1 };
-  var actualOutput = SelectionSort(numbers);
-  var expectedOutput = new List<int>() { 1, 2, 3, 4 };
-  for (int i = 0; i < actualOutput.Count(); i++)
-  {
-    // var message = $"index: {i} not the same {actualOutput[i]} {expectedOutput[i]}";
-    Debug.Assert(actualOutput[i] == expectedOutput[i], $"{actualOutput[0]} {actualOutput[1]} {actualOutput[2]} {actualOutput[3]}");
-  }
-}
+// Test Base Case
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    SortViaMergeSort(new List<int>() { 1 }),
+    new List<int>() { 1 }
+  ),
+  $"error sorting base case, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1 }))}"
+);
 
-var rawNumbers = File.ReadAllText("./numbers.txt");
+// test small list
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    SortViaMergeSort(new List<int>() { 1, 2 }),
+    new List<int>() { 1, 2 }
+  ),
+  $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
+);
 
-
-var numbers = new List<int>();
-
-var rawNumbersArray = rawNumbers.Split(' ');
-
-foreach(var rawNumber in rawNumbersArray)
-{
-  try 
-  {
-    var parsedNumber = int.Parse(rawNumber);
-    // if(parsedNumber < 1000)
-    // {
-    //   throw new Exception("number was less than 1000");
-    // }
-    numbers.Add(parsedNumber);
-  }
-  catch(Exception)
-  {
-    Console.WriteLine("something happened");
-  }
-}
-
-TestSelectionSort();
-TestSelectionSortWithMoreNumbers();
-
-// foreach(var number in sortedList)
-// {
-//   Console.WriteLine(number);
-// }
+// test larger list list
+Debug.Assert(
+  Enumerable.SequenceEqual(
+    SortViaMergeSort(new List<int>() { 6, 1, -5, 3, 5, 3, 7 }),
+    new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
+  ),
+  $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
+);
