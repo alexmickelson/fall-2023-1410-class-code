@@ -66,3 +66,15 @@ output: bd
 
 messageIndex % key.Length
 3 % 2 = 1
+
+## Menu Breakdown
+
+1. present options to the user
+2. Get menu option from the user
+3. function to handle selected options
+   1. user selected add number to list
+      1. get new number from the user
+      2. store it in the list
+   2. user selects to print the list
+      1. get numbers from list and output them
+         1. separated by spaces and commas

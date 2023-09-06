@@ -29,59 +29,89 @@ List<int> CombineSortedArrays(List<int> list1, List<int> list2)
   return combined;
 }
 
-
-var condition1Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { });
-var condition1ErrorMessage = $"Error on test for condition #1, sorted results are {string.Join(", ", condition1Results)}";
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    condition1Results,
-    new List<int>() { 1 }
-  ),
-  condition1ErrorMessage
-);
-
-
-var condition2Results = CombineSortedArrays(new List<int>() { }, new List<int>() { 1 });
-var condition2ErrorMessage = $"Error on test for condition #2, sorted results are {string.Join(", ", condition2Results)}";
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    condition2Results,
-    new List<int>() { 1 }
-  ),
-  condition2ErrorMessage
-);
+void RunTests()
+{
+  var condition1Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { });
+  var condition1ErrorMessage = $"Error on test for condition #1, sorted results are {string.Join(", ", condition1Results)}";
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      condition1Results,
+      new List<int>() { 1 }
+    ),
+    condition1ErrorMessage
+  );
 
 
-var condition3Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { 2 });
-var condition3ErrorMessage = $"Error on test for condition #3, sorted results are {string.Join(", ", condition3Results)}";
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    condition3Results,
-    new List<int>() { 1, 2 }
-  ),
-  condition3ErrorMessage
-);
-
-var condition4Results = CombineSortedArrays(new List<int>() { 2 }, new List<int>() { 1 });
-var condition4ErrorMessage = $"Error on test for condition #4, sorted results are {string.Join(", ", condition4Results)}";
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    condition4Results,
-    new List<int>() { 1, 2 }
-  ),
-  condition4ErrorMessage
-);
+  var condition2Results = CombineSortedArrays(new List<int>() { }, new List<int>() { 1 });
+  var condition2ErrorMessage = $"Error on test for condition #2, sorted results are {string.Join(", ", condition2Results)}";
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      condition2Results,
+      new List<int>() { 1 }
+    ),
+    condition2ErrorMessage
+  );
 
 
-var repeatStep2Results = CombineSortedArrays(new List<int>() { 1, 3, 5 }, new List<int>() { -5, 3, 6, 7 });
-var repeatStep2ErrorMessage = $"Error on test for repeating step #2, sorted results are {string.Join(", ", repeatStep2Results)}";
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    repeatStep2Results,
-    new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
-  ),
-  repeatStep2ErrorMessage
-);
+  var condition3Results = CombineSortedArrays(new List<int>() { 1 }, new List<int>() { 2 });
+  var condition3ErrorMessage = $"Error on test for condition #3, sorted results are {string.Join(", ", condition3Results)}";
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      condition3Results,
+      new List<int>() { 1, 2 }
+    ),
+    condition3ErrorMessage
+  );
+
+  var condition4Results = CombineSortedArrays(new List<int>() { 2 }, new List<int>() { 1 });
+  var condition4ErrorMessage = $"Error on test for condition #4, sorted results are {string.Join(", ", condition4Results)}";
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      condition4Results,
+      new List<int>() { 1, 2 }
+    ),
+    condition4ErrorMessage
+  );
+
+
+  var repeatStep2Results = CombineSortedArrays(new List<int>() { 1, 3, 5 }, new List<int>() { -5, 3, 6, 7 });
+  var repeatStep2ErrorMessage = $"Error on test for repeating step #2, sorted results are {string.Join(", ", repeatStep2Results)}";
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      repeatStep2Results,
+      new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
+    ),
+    repeatStep2ErrorMessage
+  );
+
+  // Test Base Case
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      SortViaMergeSort(new List<int>() { 1 }),
+      new List<int>() { 1 }
+    ),
+    $"error sorting base case, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1 }))}"
+  );
+
+  // test small list
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      SortViaMergeSort(new List<int>() { 1, 2 }),
+      new List<int>() { 1, 2 }
+    ),
+    $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
+  );
+
+  // test larger list list
+  Debug.Assert(
+    Enumerable.SequenceEqual(
+      SortViaMergeSort(new List<int>() { 6, 1, -5, 3, 5, 3, 7 }),
+      new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
+    ),
+    $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
+  );
+}
+
 
 
 List<int> SortViaMergeSort(List<int> input)
@@ -97,29 +127,72 @@ List<int> SortViaMergeSort(List<int> input)
   );
 }
 
-// Test Base Case
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    SortViaMergeSort(new List<int>() { 1 }),
-    new List<int>() { 1 }
-  ),
-  $"error sorting base case, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1 }))}"
-);
+RunTests();
 
-// test small list
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    SortViaMergeSort(new List<int>() { 1, 2 }),
-    new List<int>() { 1, 2 }
-  ),
-  $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
-);
 
-// test larger list list
-Debug.Assert(
-  Enumerable.SequenceEqual(
-    SortViaMergeSort(new List<int>() { 6, 1, -5, 3, 5, 3, 7 }),
-    new List<int>() { -5, 1, 3, 3, 5, 6, 7 }
-  ),
-  $"error sorting, sorted results are {string.Join(", ", SortViaMergeSort(new List<int>() { 1, 2 }))}"
-);
+void PrintMenu()
+{
+  Console.WriteLine(@"
+what would you like to do:
+1. add number to list
+// 2. remove number from list by position
+3. print current list
+// 4. sort list
+  ");
+}
+
+MenuOptions GetMenuOptionFromUser()
+{
+  var input = Console.ReadLine();
+  if (input == "1")
+    return MenuOptions.AddNumber;
+  if (input == "3")
+    return MenuOptions.PrintList;
+
+  Console.WriteLine($"Invalid input: {input}, please try again");
+  return GetMenuOptionFromUser();
+}
+
+int GetValidNumberFromUser()
+{
+  Console.WriteLine("Please enter a valid number");
+  var input = Console.ReadLine();
+  try
+  {
+    return int.Parse(input);
+  }
+  catch
+  {
+    Console.WriteLine($"Invalid number {input}, try again");
+    return GetValidNumberFromUser();
+  }
+}
+
+void HandleSelectedMenuOptions(MenuOptions option, List<int> myList)
+{
+  if (option == MenuOptions.AddNumber)
+  {
+    var input = GetValidNumberFromUser();
+    myList.Add(input);
+  }
+  if (option == MenuOptions.PrintList)
+  {
+    Console.WriteLine(string.Join(", ", myList));
+  }
+}
+// get user input
+// handle all options
+
+while (true)
+{
+  var myList = new List<int>();
+  PrintMenu();
+  var option = GetMenuOptionFromUser();
+  HandleSelectedMenuOptions(option, myList);
+}
+
+enum MenuOptions
+{
+  AddNumber,
+  PrintList
+}
