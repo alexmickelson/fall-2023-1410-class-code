@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 List<int> CombineSortedArrays(List<int> list1, List<int> list2)
 {
@@ -141,17 +142,42 @@ what would you like to do:
   ");
 }
 
-MenuOptions GetMenuOptionFromUser()
+UserMenuSelection GetMenuOptionFromUser()
 {
   var input = Console.ReadLine();
   if (input == "1")
-    return MenuOptions.AddNumber;
+  {
+    var bobsSelection = new UserMenuSelection();
+
+    bobsSelection.SelectedOption = MenuOptions.AddNumber;
+    Console.WriteLine("You selected to add a number to the list");
+    bobsSelection.OptionData = GetValidNumberFromUser();
+
+    return bobsSelection;
+  }
   if (input == "2")
-    return MenuOptions.RemoveNumber;
+  {
+    Console.WriteLine("You Selected to remove a number. Enter the index of the number you would like to remove");
+
+    var marysSelection = new UserMenuSelection
+    {
+      SelectedOption = MenuOptions.RemoveNumber,
+      OptionData = GetValidNumberFromUser()
+    };
+    return marysSelection;
+  }
   if (input == "3")
-    return MenuOptions.PrintList;
+  {
+    var timsSelection = new UserMenuSelection();
+    timsSelection.SelectedOption = MenuOptions.PrintList;
+    return timsSelection;
+  }
   if (input == "4")
-    return MenuOptions.SortList;
+  {
+    var timsSelection = new UserMenuSelection();
+    timsSelection.SelectedOption = MenuOptions.SortList;
+    return timsSelection;
+  }
 
   Console.WriteLine($"Invalid input: {input}, please try again");
   return GetMenuOptionFromUser();
@@ -171,29 +197,26 @@ int GetValidNumberFromUser()
     return GetValidNumberFromUser();
   }
 }
-List<int> HandleSelectedMenuOptions(MenuOptions option, List<int> myList)
+
+List<int> HandleSelectedMenuOptions(UserMenuSelection menuSelection, List<int> myList)
 {
-  if (option == MenuOptions.AddNumber)
+  if (menuSelection.SelectedOption == MenuOptions.AddNumber)
   {
-    Console.WriteLine("You selected to add a number to the list");
-    var input = GetValidNumberFromUser();
-    myList.Add(input);
+    myList.Add(menuSelection.OptionData);
     return myList;
   }
-  else if (option == MenuOptions.PrintList)
+  else if (menuSelection.SelectedOption == MenuOptions.PrintList)
   {
     Console.WriteLine("\nHere is the list");
     Console.WriteLine(string.Join(", ", myList));
     return myList;
   }
-  else if (option == MenuOptions.RemoveNumber)
+  else if (menuSelection.SelectedOption == MenuOptions.RemoveNumber)
   {
-    Console.WriteLine("You Selected to remove a number. Enter the index of the number you would like to remove");
-    var number = GetValidNumberFromUser();
-    myList.RemoveAt(number);
+    myList.RemoveAt(menuSelection.OptionData);
     return myList;
   }
-  else if (option == MenuOptions.SortList)
+  else if (menuSelection.SelectedOption == MenuOptions.SortList)
   {
     Console.WriteLine("Sorting the list");
     return SortViaMergeSort(myList);
@@ -215,4 +238,10 @@ enum MenuOptions
   PrintList,
   RemoveNumber,
   SortList
+}
+
+class UserMenuSelection
+{
+  public MenuOptions SelectedOption;
+  public int OptionData;
 }
