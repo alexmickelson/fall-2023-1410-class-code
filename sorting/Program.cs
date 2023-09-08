@@ -135,9 +135,9 @@ void PrintMenu()
   Console.WriteLine(@"
 what would you like to do:
 1. add number to list
-// 2. remove number from list by position
+2. remove number from list by position
 3. print current list
-// 4. sort list
+4. sort list
   ");
 }
 
@@ -146,8 +146,12 @@ MenuOptions GetMenuOptionFromUser()
   var input = Console.ReadLine();
   if (input == "1")
     return MenuOptions.AddNumber;
+  if (input == "2")
+    return MenuOptions.RemoveNumber;
   if (input == "3")
     return MenuOptions.PrintList;
+  if (input == "4")
+    return MenuOptions.SortList;
 
   Console.WriteLine($"Invalid input: {input}, please try again");
   return GetMenuOptionFromUser();
@@ -167,32 +171,48 @@ int GetValidNumberFromUser()
     return GetValidNumberFromUser();
   }
 }
-
-void HandleSelectedMenuOptions(MenuOptions option, List<int> myList)
+List<int> HandleSelectedMenuOptions(MenuOptions option, List<int> myList)
 {
   if (option == MenuOptions.AddNumber)
   {
+    Console.WriteLine("You selected to add a number to the list");
     var input = GetValidNumberFromUser();
     myList.Add(input);
+    return myList;
   }
-  if (option == MenuOptions.PrintList)
+  else if (option == MenuOptions.PrintList)
   {
+    Console.WriteLine("\nHere is the list");
     Console.WriteLine(string.Join(", ", myList));
+    return myList;
   }
+  else if (option == MenuOptions.RemoveNumber)
+  {
+    Console.WriteLine("You Selected to remove a number. Enter the index of the number you would like to remove");
+    var number = GetValidNumberFromUser();
+    myList.RemoveAt(number);
+    return myList;
+  }
+  else if (option == MenuOptions.SortList)
+  {
+    Console.WriteLine("Sorting the list");
+    return SortViaMergeSort(myList);
+  }
+  return myList;
 }
-// get user input
-// handle all options
 
+var myList = new List<int>();
 while (true)
 {
-  var myList = new List<int>();
   PrintMenu();
   var option = GetMenuOptionFromUser();
-  HandleSelectedMenuOptions(option, myList);
+  myList = HandleSelectedMenuOptions(option, myList);
 }
 
 enum MenuOptions
 {
   AddNumber,
-  PrintList
+  PrintList,
+  RemoveNumber,
+  SortList
 }
