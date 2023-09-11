@@ -78,3 +78,15 @@ messageIndex % key.Length
    2. user selects to print the list
       1. get numbers from list and output them
          1. separated by spaces and commas
+
+## Functions in our program
+
+- CombineSortedArrays
+- RunTests
+- SortViaMergeSort
+- GetMenuOptionFromUser
+- GetValidNumberFromUser
+- HandleSelectedMenuOption
+
+- MenuOptions
+- UserMenuSelection
