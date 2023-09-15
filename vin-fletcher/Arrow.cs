@@ -8,6 +8,11 @@ public class Arrow
   {
     Point = point;
     FletchingMaterial = fletching;
-    length = length;
+    ShaftLength = length;
+  }
+
+  public double GetCost()
+  {
+    return 2.3;
   }
 }
