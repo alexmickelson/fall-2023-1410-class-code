@@ -1,4 +1,4 @@
-enum MenuOptions
+public enum MenuOptions
 {
   AddNumber,
   PrintList,

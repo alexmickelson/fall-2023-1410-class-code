@@ -1,7 +1,4 @@
-﻿var tester = new Testing();
-tester.RunTests();
-
-var myList = new List<int>();
+﻿var myList = new List<int>();
 var menu = new Menu();
 while (true)
 {

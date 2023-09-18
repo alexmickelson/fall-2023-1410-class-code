@@ -1,4 +1,4 @@
-class IntegerManagement
+public class IntegerManagement
 {
   public List<int> CombineSortedArrays(List<int> list1, List<int> list2)
   {
