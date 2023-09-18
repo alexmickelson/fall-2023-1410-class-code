@@ -1,6 +1,6 @@
 public class Arrow
 {
-  public double ShaftLength;
+  private double ShaftLength;
   public ArrowHead Point;
   public Fletching FletchingMaterial;
 
@@ -14,5 +14,10 @@ public class Arrow
   public double GetCost()
   {
     return 2.3;
+  }
+
+  public double GetShaftLenght()
+  {
+    return ShaftLength;
   }
 }

@@ -1,33 +1,34 @@
 public class Shelter
 {
-  public List<Pet> Pets;
+  private List<Pet> pets;
 
   public Shelter()
   {
-    Pets = new List<Pet>();
+    pets = new List<Pet>();
   }
+
   public void AddPet(string name, string species)
   {
     var newPet = new Pet(name, species);
-    Pets.Add(newPet);
+    pets.Add(newPet);
   }
 
   public void AdoptPet(string petName)
   {
-    foreach (var pet in Pets)
+    foreach (var pet in pets)
     {
-      if (pet.Name == petName)
+      if (pet.GetName() == petName)
       {
-        pet.Status = AdoptionStatus.Adopted;
+        pet.SetAdoptionStatus(AdoptionStatus.Adopted);
       }
     }
   }
 
   public void ListAvailablePets()
   {
-    foreach (var pet in Pets)
+    foreach (var pet in pets)
     {
-      Console.WriteLine($"{pet.Name} - {pet.Species} - {pet.Status}");
+      Console.WriteLine($"{pet.GetName()} - {pet.GetSpecies()} - {pet.GetAdoptionStatus()}");
     }
     Console.WriteLine();
   }

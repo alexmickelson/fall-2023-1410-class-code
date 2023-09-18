@@ -7,5 +7,4 @@ shelter.ListAvailablePets();
 
 shelter.AdoptPet("Dogzilla");
 
-
 shelter.ListAvailablePets();

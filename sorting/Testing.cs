@@ -15,7 +15,6 @@ public class Testing
       condition1ErrorMessage
     );
 
-
     var condition2Results = intManager.CombineSortedArrays(new List<int>() { }, new List<int>() { 1 });
     var condition2ErrorMessage = $"Error on test for condition #2, sorted results are {string.Join(", ", condition2Results)}";
     Debug.Assert(
