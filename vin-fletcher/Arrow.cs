@@ -1,15 +1,30 @@
+using System.Buffers;
+
 public class Arrow
 {
-  private double ShaftLength;
-  public ArrowHead Point;
-  public Fletching FletchingMaterial;
+  public ArrowHead Point { get; set; }
+  public Fletching FletchingMaterial { get; }
+
+  private int _shaftLengthInMillimeters;
+  public double ShaftLength
+  {
+    get => _shaftLengthInMillimeters / 10.0;
+    set
+    {
+      if (value < _shaftLengthInMillimeters)
+      {
+        _shaftLengthInMillimeters = (int)(value * 10);
+      }
+    }
+  }
 
   public Arrow(ArrowHead point, Fletching fletching, double length)
   {
     Point = point;
     FletchingMaterial = fletching;
-    ShaftLength = length;
+    _shaftLengthInMillimeters = (int)(length * 10);
   }
+
 
   public double GetCost()
   {
@@ -22,11 +37,11 @@ public class Arrow
     if (Point == ArrowHead.Obsidian)
       cost += 5;
 
-    if(FletchingMaterial == Fletching.Plastic)
+    if (FletchingMaterial == Fletching.Plastic)
       cost += 10;
-    if(FletchingMaterial == Fletching.TurkeyFeathers)
+    if (FletchingMaterial == Fletching.TurkeyFeathers)
       cost += 5;
-    if(FletchingMaterial == Fletching.GooseFeathers)
+    if (FletchingMaterial == Fletching.GooseFeathers)
       cost += 3;
 
     cost += .05 * ShaftLength;
@@ -34,8 +49,4 @@ public class Arrow
     return cost;
   }
 
-  public double GetShaftLenght()
-  {
-    return ShaftLength;
-  }
 }
