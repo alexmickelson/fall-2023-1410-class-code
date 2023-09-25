@@ -29,8 +29,8 @@ public class Library
 
     foreach (var book in Books)
     {
-      output += $"{book.Id} - {book.Status} - {book.Title}";
-      if (book.Status == BookStatus.Borrowed)
+      output += $"{book.Id} - {book.Title}";
+      if (book.CheckedOutBy != null)
       {
         output += $" - has been checked out by {book.CheckedOutBy} for {book.DaysCheckedOut} days";
       }
@@ -47,7 +47,6 @@ public class Library
       {
         book.CheckedOutBy = byUser;
         book.DaysCheckedOut = 0;
-        book.Status = BookStatus.Borrowed;
       }
     }
   }
@@ -56,7 +55,7 @@ public class Library
   {
     foreach (var book in ourLibrary.Books)
     {
-      if (book.Status == BookStatus.Borrowed)
+      if (book.CheckedOutBy != null)
       {
         book.DaysCheckedOut += 1;
       }

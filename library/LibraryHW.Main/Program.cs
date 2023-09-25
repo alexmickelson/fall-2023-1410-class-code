@@ -1,21 +1,31 @@
 ﻿
-var ourLibrary = new Library();
-Console.WriteLine(ourLibrary.GetAsString());
+// var ourLibrary = new Library();
+// Console.WriteLine(ourLibrary.GetAsString());
 
-ourLibrary.AddBook("Unicorn Project");
+// ourLibrary.AddBook("Unicorn Project");
 
-Console.WriteLine($"the next id will be: {Library.GenerateNextId(ourLibrary)}");
+// Console.WriteLine($"the next id will be: {Library.GenerateNextId(ourLibrary)}");
 
-ourLibrary.CheckOut(1, "maya");
-Library.RunEndOfDay(ourLibrary);
-Library.RunEndOfDay(ourLibrary);
-Library.RunEndOfDay(ourLibrary);
-Library.RunEndOfDay(ourLibrary);
-Console.WriteLine(ourLibrary.GetAsString());
+// ourLibrary.CheckOut(1, "maya");
+// Library.RunEndOfDay(ourLibrary);
+// Library.RunEndOfDay(ourLibrary);
+// Library.RunEndOfDay(ourLibrary);
+// Library.RunEndOfDay(ourLibrary);
+// Console.WriteLine(ourLibrary.GetAsString());
 
-Console.WriteLine(Library.CalculateLateFee(ourLibrary.Books[0]));
-
-
-Book myBook = Book.CreateCheckedOutBook();
+// Console.WriteLine(Library.CalculateLateFee(ourLibrary.Books[0]));
 
 
+Book? myBook = null;
+// a bunch of other code
+// myBook = new Book() { Id = 888, Title = "Title" };
+
+
+// null conditial 
+Console.WriteLine($"title: {myBook?.Title}");
+
+// null coalescing
+// Book notNullBook = myBook ?? throw new Exception("myBook is null");
+Book notNullBook = myBook ?? new Book() { Id = 888, Title = "Title" };
+
+Book otherNotNullBook = myBook;
