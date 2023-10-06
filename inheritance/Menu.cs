@@ -1,26 +1,16 @@
-public class Menu
+public class Menu: List<IMenuItem>
 {
-  private List<MenuItem> menuItems { get; }
-
-  public Menu()
+  public override string ToString()
   {
-    menuItems = new List<MenuItem>{};
-  }
+    string overrideToString = "";
 
-  public void Add(MenuItem newItem)
-  {
-    menuItems.Add(newItem);
-  }
-
-  public void Display()
-  {
-    Console.WriteLine("Welcome to Our Restaurant!");
-    Console.WriteLine("--------------------------");
-    Console.WriteLine("Menu:");
-    foreach (var item in menuItems)
+    overrideToString += "Welcome to Our Restaurant!\n";
+    overrideToString += "--------------------------\n";
+    overrideToString += "Menu:\n";
+    foreach (var item in this)
     {
-      item.Display();
+      overrideToString += item + Environment.NewLine;
     }
+    return overrideToString;
   }
-
 }

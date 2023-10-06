@@ -10,8 +10,6 @@ class Program
     menu.Add(new Entree("Vegetable Pizza", 7.99m, true));
     menu.Add(new Dessert("Ice Cream", 3.99m, true));
     menu.Add(new Drink("Soda", 1.99m, "Medium"));
-    
-    menu.Display();
 
     Console.WriteLine(menu);
   }

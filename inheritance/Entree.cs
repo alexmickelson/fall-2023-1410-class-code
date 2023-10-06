@@ -14,4 +14,11 @@ public class Entree : MenuItem
     base.Display();
     Console.WriteLine($"  (Vegetarian: {IsVegetarian})");
   }
+
+  public override string ToString()
+  {
+    var outputString = base.ToString() + Environment.NewLine;
+    outputString += $"  (Vegetarian: {IsVegetarian})";
+    return outputString;
+  }
 }
