@@ -13,8 +13,6 @@ class Program
       new Drink("Soda", 1.99m, "Medium")
     };
 
-
-    menuItems[0].Name = "Alex's Burger";
     Console.WriteLine("Welcome to Our Restaurant!");
     Console.WriteLine("--------------------------");
     Console.WriteLine("Menu:");
