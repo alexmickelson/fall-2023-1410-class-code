@@ -8,10 +8,11 @@ public class Drink : MenuItem
     Size = size;
   }
 
-  public override void Display()
+  public override string ToString()
   {
-    base.Display();
-    Console.WriteLine($"  (Size: {Size})");
+    var outputString = base.ToString() + Environment.NewLine;
+    outputString += $"  (Size: {Size})";
+    return outputString;
   }
 
 }

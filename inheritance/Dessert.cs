@@ -7,9 +7,10 @@ public class Dessert : MenuItem
     IsFrozen = isFrozen;
   }
 
-  public override void Display()
+  public override string ToString()
   {
-    base.Display();
-    Console.WriteLine($"  (Frozen: {IsFrozen})");
-  } 
+    var outputString = base.ToString() + Environment.NewLine;
+    outputString += $"  (Frozen: {IsFrozen})";
+    return outputString;
+  }
 }
