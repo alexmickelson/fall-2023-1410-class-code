@@ -1,0 +1,1 @@
+public record Picture(string Image);

@@ -1,8 +1,7 @@
-public class BookShelf
+public class BookShelf<T>
 {
-
-  private List<string> books { get; } = new();
-  public void Add(string input)
+  private List<T> books { get; } = new();
+  public void Add(T input)
   {
     books.Add(input);
   }
@@ -15,7 +14,7 @@ public class BookShelf
 
     foreach(var book in books)
     {
-      output += centerText(book, lineWidth) + Environment.NewLine;
+      output += centerText(book.ToString(), lineWidth) + Environment.NewLine;
       output += horizontalDashes + Environment.NewLine;
     }
     return output;

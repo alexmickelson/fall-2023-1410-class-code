@@ -1,4 +1,4 @@
-public class Book
+public record Book
 {
   public required int Id { get; set; }
   public required string Title { get; set; }
