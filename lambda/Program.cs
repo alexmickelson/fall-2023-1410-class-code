@@ -1,13 +1,71 @@
 ﻿
 using System.Text.Json;
 
-var list = new List<MyThing>()
+// var list = new List<MyThing>()
+// {
+//   new MyThing("one", "two"),
+//   new MyThing("Three", "Four"),
+// };
+
+// string jsonSerializedList = JsonSerializer.Serialize(list);
+// Console.WriteLine(jsonSerializedList);
+
+// File.WriteAllText("thing.json", jsonSerializedList);
+
+// var jsonSerializedList = File.ReadAllText("thing.json");
+// var deserializedList = JsonSerializer
+//   .Deserialize<List<MyThing>>
+//   (jsonSerializedList);
+
+// foreach(MyThing thing in deserializedList)
+// {
+//   Console.WriteLine(thing);
+// }
+
+// record MyThing(string ThatThing, string OtherThing);
+
+
+
+// var myList = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+
+// var myEvenList = myList
+//   .Select(i => i * 2)
+//   .Where( n => n > 10)
+//   .Where((n) =>
+//   {
+//     Console.WriteLine($"checking if {n} is greater than 14");
+//     return n > 14;
+//   });
+
+// Console.WriteLine("here");
+
+// foreach (var item in myEvenList)
+// {
+//   Console.WriteLine(item);
+// }
+
+
+var pokemonString = File.ReadAllText("pokemon.json");
+
+Console.WriteLine(pokemonString);
+
+var pokemonList = JsonSerializer.Deserialize<List<Pokemon>>(pokemonString);
+
+var myPokemon = pokemonList
+  .Where(pokemon => int.Parse(pokemon.Attack) > 150)
+  .Where(pokemon => int.Parse(pokemon.Defense) > 150)
+  .Select(pokemon =>
+  {
+    var existingAttack = int.Parse(pokemon.Attack);
+    var newAttack = existingAttack * 2;
+    var newAttackString = newAttack.ToString();
+    return pokemon with { Attack = newAttackString };
+  })
+  .ToList();
+
+
+foreach (var pokemon in myPokemon)
 {
-  new MyThing("one", "two"),
-  new MyThing("Three", "Four"),
-};
-
-string jsonSerializedList = JsonSerializer.Serialize(list);
-Console.WriteLine(jsonSerializedList);
-
-record MyThing(string ThatThing, string OtherThing);
+  Console.WriteLine(pokemon);
+}
