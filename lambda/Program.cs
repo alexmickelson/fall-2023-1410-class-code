@@ -67,7 +67,6 @@ var myPokemon = pokemonList
 //   Console.WriteLine(pokemon);
 // }
 
-
 // store myPokemon in file
 
 var output = JsonSerializer.Serialize(myPokemon);
@@ -82,3 +81,7 @@ else
 {
   Console.WriteLine("file already exists");
 }
+
+var service = new StarWarsService();
+var starWars = await service.GetStarWarsPerson();
+Console.WriteLine(starWars);
