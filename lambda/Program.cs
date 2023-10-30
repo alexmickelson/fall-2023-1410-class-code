@@ -26,7 +26,7 @@ using System.Text.Json;
 
 
 
-// var myList = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+// var myList = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
 
 
 // var myEvenList = myList
@@ -48,24 +48,37 @@ using System.Text.Json;
 
 var pokemonString = File.ReadAllText("pokemon.json");
 
-Console.WriteLine(pokemonString);
-
 var pokemonList = JsonSerializer.Deserialize<List<Pokemon>>(pokemonString);
 
 var myPokemon = pokemonList
-  .Where(pokemon => int.Parse(pokemon.Attack) > 150)
-  .Where(pokemon => int.Parse(pokemon.Defense) > 150)
+  .Where(pokemon => pokemon.Attack > 150)
+  // .Where(pokemon => pokemon.Defense > 150)
   .Select(pokemon =>
   {
-    var existingAttack = int.Parse(pokemon.Attack);
+    var existingAttack = pokemon.Attack;
     var newAttack = existingAttack * 2;
-    var newAttackString = newAttack.ToString();
-    return pokemon with { Attack = newAttackString };
+    return pokemon with { Attack = newAttack };
   })
   .ToList();
 
 
-foreach (var pokemon in myPokemon)
+// foreach (var pokemon in myPokemon)
+// {
+//   Console.WriteLine(pokemon);
+// }
+
+
+// store myPokemon in file
+
+var output = JsonSerializer.Serialize(myPokemon);
+var myPokemonFileName = "myFavoritePokemon.json";
+
+if (!File.Exists(myPokemonFileName))
 {
-  Console.WriteLine(pokemon);
+  Console.WriteLine("file does not exists");
+  File.WriteAllText(myPokemonFileName, output);
+}
+else
+{
+  Console.WriteLine("file already exists");
 }
