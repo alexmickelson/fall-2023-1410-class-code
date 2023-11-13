@@ -3,13 +3,13 @@ public record Pokemon(
   string Name,
   string Type1,
   string Type2,
-  int Total,
   int HP,
   int Attack,
   int Defense,
   int SpecialAttack,
   int SpecialDefense,
   int Speed,
-  string Generation,
+  string Generation = "",
+  int Total = -1,
   bool Legendary = false
 );

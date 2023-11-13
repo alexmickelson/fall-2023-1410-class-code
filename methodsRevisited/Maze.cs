@@ -2,7 +2,6 @@ using System.Text;
 
 public class Maze
 {
-  private List<List<MazeSprite>> grid { get; }
   public Maze()
   {
     var stringMaze =
@@ -37,6 +36,19 @@ public class Maze
     }
 
     grid[0][0] = MazeSprite.Player;
-    Console.WriteLine("grid complete");
+    
+    // Console.WriteLine("grid complete");
+  }
+
+  private List<List<MazeSprite>> grid { get; }
+  public override string ToString()
+  {
+    StringBuilder output = new StringBuilder();
+    foreach (var row in grid)
+    {
+      output.Append(row);
+    }
+
+    return output;
   }
 }
