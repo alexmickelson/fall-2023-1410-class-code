@@ -1,0 +1,1 @@
+public record Pokemon(string Name, int Attack, int Defense);
