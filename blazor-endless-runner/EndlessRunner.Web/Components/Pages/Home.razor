@@ -1,0 +1,45 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+@if(map != null)
+{
+    <pre>
+        @map.ToString()
+    </pre>
+}
+
+Welcome to your new app.
+
+@code {
+    public Map? map = null;
+    @* public string stringMap = ""; *@
+    protected override async Task OnInitializedAsync()
+    {
+        map = new Map();
+        var displayThread = new Thread(async () =>
+        {
+            @* while (!map.HasDied) *@
+            while (true)
+            {
+                Thread.Sleep(1000);
+                System.Console.WriteLine("in display thread");
+                var newRow = map.GenerateNewRow();
+                map.AddNewRow(newRow);
+                @* stringMap = map.ToString(); *@
+                await InvokeAsync(() => StateHasChanged());
+            }
+
+            @* Scores.AddScore(map.Score);
+            Console.Clear();
+            Console.WriteLine(map);
+            Thread.Sleep(1000);
+            Console.Clear();
+            Console.WriteLine($"Game Over, your score was: {map.Score}");
+            Thread.Sleep(1000);
+            Console.Clear(); *@
+        });
+        displayThread.Start();
+    }
+}
