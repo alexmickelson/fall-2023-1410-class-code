@@ -1,2 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+
+var listOfPokemon = PokemonService.ReadCsv();
+foreach(var p in listOfPokemon)
+{
+    System.Console.WriteLine(p);
+}

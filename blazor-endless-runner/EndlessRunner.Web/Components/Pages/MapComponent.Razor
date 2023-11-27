@@ -1,0 +1,49 @@
+<pre>
+    @stringMap
+</pre>
+
+
+<button @onclick="() => {
+            map.GoLeft = true;
+            map.GoRight = false;
+    }"
+    >Left</button>
+<button @onclick="() =>{
+            map.GoLeft = false;
+            map.GoRight = true;
+          }">Right</button>
+@code {
+    public Map? map = new Map();
+    public string stringMap { get; private set; } = string.Empty;
+    private bool isComponentAlive = true;
+    private readonly object _numberLock = new object();
+
+    private Task? renderTask = null;
+
+    protected override void OnInitialized()
+    {
+        lock(_numberLock)
+        {
+            if(renderTask == null)
+            {
+                renderTask = RunRenderThread();
+            }
+        }
+    }
+
+    private async Task RunRenderThread()
+    {
+        while (true)
+        {
+            await Task.Delay(1000); // Non-blocking delay
+            var newRow = map.GenerateNewRow();
+            map.AddNewRow(newRow);
+            stringMap = map.ToString();
+            Console.WriteLine(stringMap);
+
+            StateHasChanged();
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

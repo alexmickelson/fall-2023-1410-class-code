@@ -1,64 +1,11 @@
 ﻿@page "/"
+@using EndlessRunner.Web.Components.Pages
+@* @attribute [StreamRendering] *@
+
+@inject NavigationManager navigationManager
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
-<pre>
-    @stringMap
-</pre>
-
-@code {
-    public Map? map = null;
-    public string stringMap { get; private set; } = string.Empty;
-    private bool isComponentAlive = true;
-
-    protected override void OnInitialized()
-    {
-        map = new Map();
-        @* UpdateMapAsync(); *@
-        RunTimer();
-
-    }
-
-    private async Task UpdateMapAsync()
-    {
-        @* while (isComponentAlive)
-        {
-            await Task.Delay(1000); // Non-blocking delay
-            var newRow = map.GenerateNewRow();
-            map.AddNewRow(newRow);
-            stringMap = "update";
-            System.Console.WriteLine("update");
-            InvokeAsync(StateHasChanged); // No need to use InvokeAsync as we are already on the main thread
-        }
-         *@
-         @* await Task.Delay(1); *@
-         while(true)
-         {
-            var newRow = map.GenerateNewRow();
-            map.AddNewRow(newRow);
-            stringMap = map.ToString();
-            StateHasChanged();
-            System.Console.WriteLine("here");
-            await Task.Delay(1000);
-         }
-         
-    }
-    private void RunTimer()
-    {
-        new Timer((_) => {
-            var newRow = map.GenerateNewRow();
-            map.AddNewRow(newRow);
-            stringMap = map.ToString();
-            InvokeAsync(StateHasChanged);
-            System.Console.WriteLine("here");
-            @* RunTimer(); *@
-         }, null, 0, 1000);
-    }
-
-    public void Dispose()
-    {
-        isComponentAlive = false; // This will stop the loop when the component is disposed
-    }
-}
+<MapComponent  />
