@@ -21,7 +21,9 @@ public class CanvasService
     public async Task GetCanvasAssignmentsAsync()
     {
         var client = new HttpClient();
-        using HttpResponseMessage response = await client.GetAsync("http://www.contoso.com/");
+        var url = "https://snow.instructure.com/api/v1/courses/871098/assignments";
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {canvasToken}");
+        using HttpResponseMessage response = await client.GetAsync(url);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
