@@ -6,7 +6,15 @@
 
 <h1>Hello, world!</h1>
 
+@if(assignments != null)
+{
+    @foreach(var assignment in assignments)
+    {
+       <p>@assignment.Name Point: @assignment.PointsPossible</p>
+       
 
+    }
+}
 
 @code {
     private List<CanvasAssignment> assignments { get; set; }
