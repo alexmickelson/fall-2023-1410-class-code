@@ -2,4 +2,10 @@
 
 var canvasService = new CanvasService();
 
-await canvasService.GetCanvasAssignmentsAsync();
+var assignments = await canvasService.GetCanvasAssignmentsAsync();
+
+
+foreach (var assignment in assignments)
+{
+    Console.WriteLine(assignment);
+}

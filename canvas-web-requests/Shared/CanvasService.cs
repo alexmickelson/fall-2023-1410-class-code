@@ -18,7 +18,7 @@ public class CanvasService
             canvasToken = File.ReadAllText(fileName);
     }
 
-    public async Task GetCanvasAssignmentsAsync()
+    public async Task<List<CanvasAssignment>> GetCanvasAssignmentsAsync()
     {
         var client = new HttpClient();
         var url = "https://snow.instructure.com/api/v1/courses/871098/assignments";
@@ -27,6 +27,10 @@ public class CanvasService
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
-        Console.WriteLine(responseBody);
+        // Console.WriteLine(responseBody);
+        File.WriteAllText("assignments.json", responseBody);
+
+        var deserialized = JsonSerializer.Deserialize<List<CanvasAssignment>>(responseBody);
+        return deserialized;
     }
 }
